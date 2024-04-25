@@ -1,9 +1,11 @@
 FROM alpine
 
-VOLUME [ "/etc/periodic" ]
+VOLUME [ "/config" ]
 
 RUN apk add --no-cache rsync tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && apk del tzdata
 
-RUN echo -e '#!/bin/sh \ncrond\nrsync --daemon --no-detach --config=/etc/rsyncd.conf' > /entrypoint.sh && chmod +x /entrypoint.sh
+COPY ./scripts /scripts
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+RUN chmod +x /scripts/*.sh
+
+ENTRYPOINT [ "sh", "/scripts/entrypoint.sh" ]
