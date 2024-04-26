@@ -29,7 +29,7 @@ if [ -f "/templates/sample.task.txt" ]; then
     mv -f /templates/sample.task.txt $task_dir/sample.task.txt
 fi
 cat $task_dir/*.task.txt | grep -v '^#' > $cron_file 2>> /log/sync.log
-echo -e "\n" >> $cron_file
+echo "" >> $cron_file
 
 echo "setup cron file success, new cron file: " >> /log/sync.log
 cat $cron_file >> /log/sync.log
