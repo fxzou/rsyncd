@@ -1,0 +1,12 @@
+# please copy and don't modify this file. 
+# min   hour    day     month   weekday command
+# 15min
+#*/15    *       *       *       *       /scripts/sync.sh {src_dir} {dest_dir}
+# hourly
+#0       *       *       *       *       /scripts/sync.sh {src_dir} {dest_dir}
+# daily
+#0       2       *       *       *       /scripts/sync.sh {src_dir} {dest_dir}
+# weekly
+#0       3       *       *       6       /scripts/sync.sh {src_dir} {dest_dir}
+# monthly, add '--keep' will keep dest file when src file has been deleted.
+#0       5       1       *       *       /scripts/sync.sh --keep {src_dir} {dest_dir}

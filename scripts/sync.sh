@@ -19,7 +19,7 @@ dest="${dest%*/}"
 
 echo "begin sync: ${src} --> ${dest} ${delete}" >> /log/sync.log 
 
-dest_dirs_file="/config/dest_dirs.config"
+dest_dirs_file="/config/dest_dirs.config.txt"
 if [ -f "$dest_dirs_file" ]; then
     invalid_dest_dir=1
     while IFS= read -r dest_dir; do
@@ -36,8 +36,8 @@ else
     exit 1
 fi
 
-echo "run command: rsync --stats -a ${delete} ${src} ${dest}" >> /log/sync.log 
+echo "run command: rsync --stats -ah ${delete} ${src} ${dest}" >> /log/sync.log 
 
-rsync --stats -a $delete $src $dest >> /log/sync.log 2>&1
+rsync --stats -ah $delete $src $dest >> /log/sync.log 2>&1
 
 echo "finish sync: ${src} --> ${dest} ${delete}" >> /log/sync.log 
