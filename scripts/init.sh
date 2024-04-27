@@ -14,12 +14,12 @@ fi
 
 [ -d "${backup_dir}" ] || mkdir -p ${backup_dir}
 cp $cron_file $backup_dir/$backup_file
-echo 'backup cron file success' >> /log/sync.log
+echo 'backup cron file success' >> /log/backup.log
 num_backups=$(ls -1 $backup_dir | wc -l)
 if [ $num_backups -gt 10 ]; then
     oldest_backup=$(ls -t $backup_dir | tail -n 1)
     rm $backup_dir/$oldest_backup
-    echo "remove oldest backup cron file success: ${oldest_backup}" >> /log/sync.log
+    echo "remove oldest backup cron file success: ${oldest_backup}" >> /log/backup.log
 fi
 
 rm $cron_file
@@ -28,11 +28,11 @@ touch $cron_file
 if [ -f "/templates/sample.task.txt" ]; then
     mv -f /templates/sample.task.txt $task_dir/sample.task.txt
 fi
-cat $task_dir/*.task.txt | grep -v '^#' > $cron_file 2>> /log/sync.log
+cat $task_dir/*.task.txt | grep -v '^#' > $cron_file 2>> /log/backup.log
 echo "" >> $cron_file
 
-echo "setup cron file success, new cron file: " >> /log/sync.log
-cat $cron_file >> /log/sync.log
+echo "setup cron file success, new cron file: " >> /log/backup.log
+cat $cron_file >> /log/backup.log
 
 if [ ! -f "/config/dest_dirs.config.txt" ]; then
     touch /config/dest_dirs.config.txt

@@ -2,4 +2,4 @@
 
 sh /scripts/init.sh
 crond
-tail -f /log/sync.log
+tail -f /log/backup.log

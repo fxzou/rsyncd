@@ -10,4 +10,6 @@ COPY ./templates /templates
 
 RUN chmod +x /scripts/*.sh
 
+RUN ln -s /scripts/backup.sh /usr/bin/backup
+
 ENTRYPOINT [ "sh", "/scripts/entrypoint.sh" ]
