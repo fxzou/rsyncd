@@ -3,7 +3,7 @@
 backup_dir="/config/backup"
 timestamp=$(date "+%Y%m%d%H%M%S")
 cron_file="/etc/crontabs/root"
-backup_file="corn_backup_${timestamp}.bak"
+backup_file="corn_backup_${timestamp}.bak.txt"
 task_dir="/config/tasks"
 log_dir="/log"
 
@@ -28,7 +28,8 @@ touch $cron_file
 if [ -f "/templates/sample.task.txt" ]; then
     mv -f /templates/sample.task.txt $task_dir/sample.task.txt
 fi
-cat $task_dir/*.task.txt | grep -v '^#' > $cron_file 2>> /log/backup.log
+find $task_dir -type f -name "*.task.txt" -exec cat {} \; -exec echo \; | grep -vE '^(#|$
+)' > $cron_file 2>> /log/backup.log
 echo "" >> $cron_file
 
 echo "setup cron file success, new cron file: " >> /log/backup.log
