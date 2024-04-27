@@ -28,8 +28,7 @@ touch $cron_file
 if [ -f "/templates/sample.task.txt" ]; then
     mv -f /templates/sample.task.txt $task_dir/sample.task.txt
 fi
-find $task_dir -type f -name "*.task.txt" -exec cat {} \; -exec echo \; | grep -vE '^(#|$
-)' > $cron_file 2>> /log/backup.log
+find $task_dir -type f -name "*.task.txt" -exec cat {} \; -exec echo \; | grep -vE '^(#|$)' > $cron_file 2>> /log/backup.log
 echo "" >> $cron_file
 
 echo "setup cron file success, new cron file: " >> /log/backup.log
