@@ -11,7 +11,7 @@ while getopts ":de:" opt; do
       delete=" --delete"
       ;;
     e)
-      exclude="$exclude --exclude '$OPTARG'"
+      exclude="$exclude --exclude $OPTARG"
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >> /log/backup.log 
