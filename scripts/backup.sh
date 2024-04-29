@@ -1,5 +1,8 @@
 #!/bin/sh
 cd ~
+src_args=$@
+echo "begin sync: $src_args" >> /log/backup.log 
+
 delete=""
 exclude=""
 while getopts ":de:" opt; do
@@ -8,7 +11,7 @@ while getopts ":de:" opt; do
       delete=" --delete"
       ;;
     e)
-      exclude="$exclude --exclude $OPTARG"
+      exclude="$exclude --exclude '$OPTARG'"
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >> /log/backup.log 
@@ -30,8 +33,6 @@ fi
 src="${src%*/}/"
 dest="${dest%*/}"
 
-echo "begin sync: $@" >> /log/backup.log 
-
 dest_dirs_file="/config/dest_dirs.config.txt"
 if [ -f "$dest_dirs_file" ]; then
     invalid_dest_dir=1
@@ -49,8 +50,11 @@ else
     exit 1
 fi
 
+src="'$src'"
+dest="'$dest'"
+
 echo "run command: rsync --stats -ah${delete}${exclude} ${src} ${dest}" >> /log/backup.log 
 
 rsync --stats -ah$delete$exclude $src $dest >> /log/backup.log 2>&1
 
-echo "finish sync: $@" >> /log/backup.log 
+echo "finish sync: $src_args" >> /log/backup.log 
