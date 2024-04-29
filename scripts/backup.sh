@@ -50,9 +50,6 @@ else
     exit 1
 fi
 
-src="'$src'"
-dest="'$dest'"
-
 echo "run command: rsync --stats -ah${delete}${exclude} ${src} ${dest}" >> /log/backup.log 
 
 rsync --stats -ah$delete$exclude $src $dest >> /log/backup.log 2>&1
